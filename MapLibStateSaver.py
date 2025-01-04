@@ -70,3 +70,57 @@ class PCAStateSaver:
 
         tree = ET.ElementTree(root)
         tree.write(filename, encoding='utf-8', xml_declaration=True)
+
+
+class EMClassifierStateSaver:
+    def __init__(self, pca : sklearn.decomposition._pca):
+        self.pca_ = pca
+
+    def save_state(self, path: str, filename: str):
+        try:
+            if not path:
+                states_dir = './states'
+                if not os.path.exists(states_dir):
+                    os.mkdir(states_dir)
+            if not os.path.exists(path):
+                os.mkdir(path)
+        except Exception as e:
+            print(f"Ошибка при сохранении состояния в директорию {path}: {e}")
+        
+        root = ET.Element("ElasticMapClassifier")
+        #TODO take saving EM classifier info: coords of map into 3d PC space with their classes marks
+
+        if not filename:
+            filename = path + '//' + dt.now().strftime("%d/%m/%Y %H:%M:%S")
+        else:
+            filename = path + '//' + filename
+
+        tree = ET.ElementTree(root)
+        tree.write(filename, encoding='utf-8', xml_declaration=True)
+
+
+class SOMClassifierStateSaver:
+    def __init__(self, pca : sklearn.decomposition._pca):
+        self.pca_ = pca
+
+    def save_state(self, path: str, filename: str):
+        try:
+            if not path:
+                states_dir = './states'
+                if not os.path.exists(states_dir):
+                    os.mkdir(states_dir)
+            if not os.path.exists(path):
+                os.mkdir(path)
+        except Exception as e:
+            print(f"Ошибка при сохранении состояния в директорию {path}: {e}")
+        
+        root = ET.Element("SomClassifier")
+        #TODO take saving SOM classifier info: coords of map into som space with their classes marks
+
+        if not filename:
+            filename = path + '//' + dt.now().strftime("%d/%m/%Y %H:%M:%S")
+        else:
+            filename = path + '//' + filename
+
+        tree = ET.ElementTree(root)
+        tree.write(filename, encoding='utf-8', xml_declaration=True)
