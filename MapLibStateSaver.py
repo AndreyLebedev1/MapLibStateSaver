@@ -8,7 +8,7 @@ class KMeansStateSaver:
     def __init__(self, kMeans : sklearn.cluster._kmeans.KMeans):
         self.kMeans_ = kMeans
 
-    def save_state(self, path: str, filename: str):
+    def save_state(self, path: str, filename: str = r''):
         try:
             if not path:
                 states_dir = './states'
@@ -29,9 +29,9 @@ class KMeansStateSaver:
                 coord_element.text = str(value)
 
         if not filename:
-            filename = path + '//' + dt.now().strftime("%d/%m/%Y %H:%M:%S")
+            filename = path + '/kMeans ' + dt.now().strftime("%Y_%m_%d__%H_%M_%S") + '.xml'
         else:
-            filename = path + '//' + filename
+            filename = path + '/' + filename
 
         tree = ET.ElementTree(root)
         tree.write(filename, encoding='utf-8', xml_declaration=True)
@@ -41,7 +41,7 @@ class PCAStateSaver:
     def __init__(self, pca : sklearn.decomposition._pca):
         self.pca_ = pca
 
-    def save_state(self, path: str, filename: str):
+    def save_state(self, path: str, filename: str = r''):
         try:
             if not path:
                 states_dir = './states'
@@ -64,9 +64,9 @@ class PCAStateSaver:
         singular_values.text = str(self.pca_.singular_values_.tolist())
 
         if not filename:
-            filename = path + '//' + dt.now().strftime("%d/%m/%Y %H:%M:%S")
+            filename = path + '/pca ' + dt.now().strftime("%Y_%m_%d__%H_%M_%S") + '.xml'
         else:
-            filename = path + '//' + filename
+            filename = path + '/' + filename
 
         tree = ET.ElementTree(root)
         tree.write(filename, encoding='utf-8', xml_declaration=True)
