@@ -23,7 +23,7 @@ class KMeansStateSaver:
         except Exception as e:
             print(f"Ошибка при сохранении состояния в директорию {path}: {e}")
         
-        centroids = kmeans.cluster_centers_
+        centroids = self.kMeans_.cluster_centers_
         root = ET.Element("KMeansCentroids")
 
         for i, centroid in enumerate(centroids):
